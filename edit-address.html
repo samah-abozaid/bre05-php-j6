@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier une adresse</title>
+</head>
+<body>
+    <h1>Modifier une adresse</h1>
+
+    <form action="edit-address.php" method="post">
+        <!-- Champ ID (adresse à modifier) -->
+        <label for="id">ID :</label>
+        <input type="number" id="id" name="id" required><br><br>
+
+        <!-- Champ Street -->
+        <label for="street">Street :</label>
+        <input type="text" id="street" name="street" required><br><br>
+
+        <!-- Champ City -->
+        <label for="city">City :</label>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <!-- Champ Zipcode -->
+        <label for="zipcode">Zipcode :</label>
+        <input type="text" id="zipcode" name="zipcode" required><br><br>
+
+        <!-- Bouton Soumettre -->
+        <button type="submit">Mettre à jour</button>
+    </form>
+</body>
+</html>
