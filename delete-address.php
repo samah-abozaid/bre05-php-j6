@@ -1,20 +1,32 @@
 <?php
 require './connexion.php'; // connexion à la base de données
 
-//  Récupérer et sécuriser les valeurs
+// Vérifier que le formulaire est bien soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
-$id      = $_POST['id'];
+    // Sécuriser la valeur (forcer en entier)
+    $id = (int) $_POST['id'];
 
-// Préparer la requête SQL pour mettre à jour l'adresse
-$query = $db->prepare("DELETE FROM address WHERE id = :id");
+ $db->prepare("UPDATE users SET address = NULL WHERE address = :id")
+   ->execute(['id' => $id]);
 
-$parameters = [
-    'id' => $id
-];
-$query->execute($parameters);
+$db->prepare("DELETE FROM address WHERE id = :id")
+   ->execute(['id' => $id]);
 
 
-// Confirmation
-echo "Adresse supprimer avec succès !";
+    // Exécuter avec paramètre sécurisé
+    $query->execute([
+        'id' => $id
+    ]);
 
+    // Vérifier si une ligne a été supprimée
+    if ($query->rowCount() > 0) {
+        echo "Adresse supprimée avec succès !";
+    } else {
+        echo "Aucune adresse trouvée avec cet ID.";
+    }
+
+} else {
+    echo "Requête invalide.";
+}
 ?>
